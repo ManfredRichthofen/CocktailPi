@@ -3,9 +3,11 @@ import { calcTextColor, isDark, complementColor } from 'src/mixins/utils'
 import { colors } from 'quasar'
 
 export const setAppearanceSettings = (state, payload) => {
-  i18n.global.locale = payload.language.name
+  if (payload.language && payload.language.name) {
+    i18n.global.locale = payload.language.name
+  }
   const settings = {
-    language: payload.language,
+    language: payload.language || { name: 'en_US' },
     colors: {}
   }
   if (colors.brightness(payload.colors.normal.cardBody) > 240) {
